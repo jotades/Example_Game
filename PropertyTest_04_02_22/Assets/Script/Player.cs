@@ -27,7 +27,8 @@ public class Player : MonoBehaviour
             {
                 cubeRenderer.material.SetColor("_Color", Color.red);
             }
-            else { 
+            else
+            { 
             cubeRenderer.material.SetColor("_Color", Color.green);
             }
 
