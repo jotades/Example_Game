@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
             myProperty.Score += 1;
             this.transform.Rotate(0, transform.rotation.y+myProperty.Score,0);
             Debug.Log(myProperty.Score);
+            Debug.Log(transform.rotation.y + myProperty.Score);
             
 
         }
