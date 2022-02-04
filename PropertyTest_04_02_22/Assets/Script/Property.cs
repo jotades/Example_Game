@@ -10,6 +10,7 @@ public class Property : MonoBehaviour
     public Text scoreText;
     private int _velocity;
     public Text velocityText;
+
     public int Score
     {
         get 
@@ -22,7 +23,7 @@ public class Property : MonoBehaviour
             scoreText.text = _score.ToString();            
         }
     }
-    public int Velocity
+    public int Velo
     {
         get
         { 
@@ -33,5 +34,5 @@ public class Property : MonoBehaviour
             _velocity = value;
             velocityText.text = _velocity.ToString();
         }
-    }
+    }   
 }
