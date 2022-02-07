@@ -37,11 +37,11 @@ public class Player : MonoBehaviour
         }
 
     }
-    //public void automaticRotation()
-    //{
+    public void automaticRotation()
+    {
 
-    //    seconds.Rotate(Quaternion.Euler(0, 0, Time.deltaTime * secondsToDegrees).eulerAngles*100);
+        seconds.Rotate(Quaternion.Euler(0, 0, Time.deltaTime * secondsToDegrees).eulerAngles*100);
 
-    //}
+    }
 }
 
