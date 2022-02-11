@@ -14,8 +14,8 @@ public class ManagerSpawner : MonoBehaviour
     public Transform path;
     public Transform surround;
 
-    public int gridX;
-    public int gridZ;
+    public float gridX;
+    public float gridZ;
     public float gridSpacingOffset = 1f;
     public Vector3 gridOrigin = Vector3.zero;
 
@@ -68,24 +68,20 @@ public class ManagerSpawner : MonoBehaviour
                     {
                         path = Instantiate(PuzzlePath[Random.Range(0, 1)], path.position + Vector3.left, Quaternion.identity).transform;
                     }
-
                 }
-
-                //if (cForward > 3)
-                //{
-                //    path = Instantiate(PuzzlePath[Random.Range(0, 1)], path.position + Vector3.left, Quaternion.identity).transform;
-
-                //}
-                pathPosition.Add(path.transform.GetComponent<Transform>().position);
-            }
+                pathPosition.Add(path.transform.GetComponent<Transform>().position);  
+            }           
         }
+        var lastItem = pathPosition.Last();
+        gridZ = lastItem.z;
+        gridX = lastItem.x;
         for (int a = 0; a < gridX; a++)
         {
             for (int b = 0; b < gridZ; b++)
             {
                 gridSpacingOffset = 1f;
                 Vector3 spawnPosition = new Vector3(a * gridSpacingOffset, 0, b * gridSpacingOffset) + gridOrigin;
-                Debug.Log(spawnPosition);
+              //  Debug.Log(spawnPosition);
                 if (!pathPosition.Contains(spawnPosition))
                 {
                     gridSpacingOffset = 1f;
@@ -93,6 +89,10 @@ public class ManagerSpawner : MonoBehaviour
                 }
             }
         }
+       
+        Debug.Log(lastItem);      
+        
+      
     }
     // Update is called once per frame
 }
