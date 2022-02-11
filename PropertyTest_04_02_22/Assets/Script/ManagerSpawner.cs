@@ -1,52 +1,104 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ManagerSpawner : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject puzzle;
-    private GameObject clone;
-    public GameObject[] Puzzle;
-   // int p = 5;
+    public List<Vector3> pathPosition = new List<Vector3>();
+    public GameObject[] PuzzlePath;
+    public GameObject[] PuzzleSurround;
+
     public Transform path;
-    private enum positionCube
-     {
-         nord=0,
-         sud,
-         est,
-         ovest,
-     }
-    void Start()
+    public Transform surround;
+
+    public int gridX;
+    public int gridZ;
+    public float gridSpacingOffset = 1f;
+    public Vector3 gridOrigin = Vector3.zero;
+
+    //private enum positionCube
+    //{
+    //    nord = 0,
+    //    sud,
+    //    est,
+    //    ovest,
+    //}
+    public void Start()
     {
-        for (int i = 0; i < 50; i++)
+        float pathDimension = Random.Range(50f, 50f);
+        int i = 0;
+        int cForward = 0;
+        int cRight = 0;
+        int cLeft = 0;
+        for (i = 0; i < 50; i++)
         {
-            Vector3 PathPos = path.position;
-            int nextDirection = Random.Range(0, 2);
-            if (PathPos.x <=Random.Range(5f,-5f)  && PathPos.z<= Random.Range(5f, -5f))
+            Vector3 pathposforward = path.position + Vector3.forward;
+            Vector3 pathposright = path.position + Vector3.right;
+            int nextdirection = Random.Range(0, 3);
+
+            if (pathposforward.x <= pathDimension && pathposforward.z <= pathDimension && pathposright.x <= pathDimension && pathposright.z <= pathDimension)
             {
-                if (nextDirection == 0)
+                if (nextdirection == 0)
                 {
-                    path = Instantiate(Puzzle[Random.Range(0, 1)], path.position + Vector3.right, Quaternion.identity).transform;
-                    //clone = Instantiate(Puzzle[Random.Range(1, 2)], path.position *2 + RandomRange, transform.rotation);
+                    cForward++;
+                    path = Instantiate(PuzzlePath[Random.Range(0, 1)], path.position + Vector3.right, Quaternion.identity).transform;
+                }
+                if (nextdirection == 1)
+                {
+                    cRight++;
+                    path = Instantiate(PuzzlePath[Random.Range(0, 1)], path.position + Vector3.forward, Quaternion.identity).transform;
+                }
+                if (nextdirection == 2)
+                {
+                    cLeft++;
+                    path = Instantiate(PuzzlePath[Random.Range(0, 1)], path.position + Vector3.left, Quaternion.identity).transform;
+                    int newdirection = Random.Range(0, 3);
+                    if (newdirection == 0)
+                    {
+                        path = Instantiate(PuzzlePath[Random.Range(0, 1)], path.position + Vector3.forward, Quaternion.identity).transform;
+                    }
+                    if (newdirection == 1)
+                    {
+                        path = Instantiate(PuzzlePath[Random.Range(0, 1)], path.position + Vector3.right, Quaternion.identity).transform;
+                    }
+                    if (newdirection == 2)
+                    {
+                        path = Instantiate(PuzzlePath[Random.Range(0, 1)], path.position + Vector3.left, Quaternion.identity).transform;
+                    }
 
                 }
-                if (nextDirection == 1)
+
+                //if (cForward > 3)
+                //{
+                //    path = Instantiate(PuzzlePath[Random.Range(0, 1)], path.position + Vector3.left, Quaternion.identity).transform;
+
+                //}
+                pathPosition.Add(path.transform.GetComponent<Transform>().position);
+            }
+        }
+        for (int a = 0; a < gridX; a++)
+        {
+            for (int b = 0; b < gridZ; b++)
+            {
+                gridSpacingOffset = 1f;
+                Vector3 spawnPosition = new Vector3(a * gridSpacingOffset, 0, b * gridSpacingOffset) + gridOrigin;
+                Debug.Log(spawnPosition);
+                if (!pathPosition.Contains(spawnPosition))
                 {
-                    path = Instantiate(Puzzle[Random.Range(0, 1)], path.position + Vector3.forward, Quaternion.identity).transform;
-                    // clone = Instantiate(Puzzle[Random.Range(1, 2)], path.position * 2 + RandomRange, transform.rotation);
+                    gridSpacingOffset = 1f;
+                    surround = Instantiate(PuzzleSurround[Random.Range(0, 3)], spawnPosition, Quaternion.identity).transform;
                 }
             }
-           // return;                           
-            //Vector3 RandomRange = new Vector3(Random.Range(-5, 5),0, Random.Range(-5, 5));
-            //clone = Instantiate(Puzzle[Random.Range(1, 2)], RandomRange, transform.rotation);
-            //Debug.Log(clone.gameObject.transform.GetChild(0).transform.position);
-        }return;
-        // Update is called once per frame
-        void Update()
-        {
         }
-        
     }
+    // Update is called once per frame
 }
+
+
+    
+
+
 
