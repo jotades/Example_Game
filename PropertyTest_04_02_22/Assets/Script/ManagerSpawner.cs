@@ -19,6 +19,8 @@ public class ManagerSpawner : MonoBehaviour
     public float gridSpacingOffset = 1f;
     public Vector3 gridOrigin = Vector3.zero;
 
+    public Transform pointSix;
+
     //private enum positionCube
     //{
     //    nord = 0,
@@ -28,7 +30,7 @@ public class ManagerSpawner : MonoBehaviour
     //}
     public void Start()
     {
-        float pathDimension = Random.Range(50f, 50f);
+        float pathDimension = Random.Range(0f, 50f);
         int i = 0;
         int cForward = 0;
         int cRight = 0;
@@ -37,14 +39,15 @@ public class ManagerSpawner : MonoBehaviour
         {
             Vector3 pathposforward = path.position + Vector3.forward;
             Vector3 pathposright = path.position + Vector3.right;
-            int nextdirection = Random.Range(0, 3);
+            int nextdirection = Random.Range(0, 1);
+            pointSix = puzzle.transform.GetChild(0);
 
-            if (pathposforward.x <= pathDimension && pathposforward.z <= pathDimension && pathposright.x <= pathDimension && pathposright.z <= pathDimension)
-            {
+            //if (pathposforward.x <= pathDimension && pathposforward.z <= pathDimension && pathposright.x <= pathDimension && pathposright.z <= pathDimension)
+            //{
                 if (nextdirection == 0)
                 {
                     cForward++;
-                    path = Instantiate(PuzzlePath[Random.Range(0, 1)], path.position + Vector3.right, Quaternion.identity).transform;
+                    path = Instantiate(PuzzlePath[Random.Range(0, 1)], pointSix.position + Vector3.right/*path.position + Vector3.right*/, Quaternion.identity).transform;
                 }
                 if (nextdirection == 1)
                 {
@@ -70,26 +73,26 @@ public class ManagerSpawner : MonoBehaviour
                     }
                 }
                 pathPosition.Add(path.transform.GetComponent<Transform>().position);  
-            }           
+           // }           
         }
         var lastItem = pathPosition.Last();
-        gridZ = lastItem.z;
-        gridX = lastItem.x;
+        gridZ = lastItem.z+1;
+        gridX= lastItem.x+1;
         for (int a = 0; a < gridX; a++)
         {
             for (int b = 0; b < gridZ; b++)
             {
                 gridSpacingOffset = 1f;
                 Vector3 spawnPosition = new Vector3(a * gridSpacingOffset, 0, b * gridSpacingOffset) + gridOrigin;
-              //  Debug.Log(spawnPosition);
+                
+                //  Debug.Log(spawnPosition);
                 if (!pathPosition.Contains(spawnPosition))
                 {
                     gridSpacingOffset = 1f;
-                    surround = Instantiate(PuzzleSurround[Random.Range(0, 3)], spawnPosition, Quaternion.identity).transform;
+                    surround = Instantiate(PuzzleSurround[Random.Range(0, 1)], spawnPosition, Quaternion.identity).transform;
                 }
             }
-        }
-       
+        }     
         Debug.Log(lastItem);      
         
       
