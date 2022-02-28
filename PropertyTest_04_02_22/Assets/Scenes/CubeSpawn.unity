@@ -158,9 +158,9 @@ MonoBehaviour:
   - {fileID: 6114772575175365849, guid: 3f26354254826234eb28fd362700dd5c, type: 3}
   puzzle: {fileID: 8721928286746689826, guid: ced023799f273b041b514a828e5693d9, type: 3}
   pathOne: {fileID: 8232953113074965400, guid: ced023799f273b041b514a828e5693d9, type: 3}
-  pathTwo: {fileID: 0}
   distance: {x: -0.665, y: 0, z: 0}
   pathPosition: []
+  nextdirection: 0
 --- !u!4 &483501435
 Transform:
   m_ObjectHideFlags: 0

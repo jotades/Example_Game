@@ -71,9 +71,13 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 98055b29c7c51a74eaebdf07c478583d, type: 2}
+    - target: {fileID: 7710212531393457490, guid: ced023799f273b041b514a828e5693d9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8721928286746689826, guid: ced023799f273b041b514a828e5693d9, type: 3}
       propertyPath: m_Name
-      value: 1_Exaon Variant
+      value: 1_Exaon Variant - Copia
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ced023799f273b041b514a828e5693d9, type: 3}
