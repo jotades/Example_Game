@@ -6,6 +6,7 @@ using System.Linq;
 public class SpawnerExagonal : MonoBehaviour
 {
     public GameObject[] PuzzleExagonal;
+    public GameObject[] PuzzleSurround;
     public GameObject puzzle;
     public Transform pathOne;
 
@@ -13,18 +14,16 @@ public class SpawnerExagonal : MonoBehaviour
     public Vector3 distance = new Vector3(0.86f, 0, 0);
 
     public List<Vector3> pathPosition = new List<Vector3>();
-    
+    [SerializeField]
+    public Vector3 firstValue;   
     public int nextdirection;
-    //public co _collider;
-
-
     // Update is called once per frame
     void Start()
     {
         int j = 0;
         while (true)
         {
-            nextdirection = Random.Range(0, 4);
+            nextdirection = Random.Range(0, 3);
             if (nextdirection == 0 )
             {
                 SpawnerOne();
@@ -35,7 +34,7 @@ public class SpawnerExagonal : MonoBehaviour
                     pathPosition.Remove(_patOne);
                     Destroy(pathOne.gameObject);
                     Debug.Log("Destroied");
-                    nextdirection = Random.Range(1, 3);
+                    continue;
                     j--;
                 }
                 else
@@ -52,8 +51,7 @@ public class SpawnerExagonal : MonoBehaviour
                 {
                     pathPosition.Remove(_patOne);
                     Destroy(pathOne.gameObject);
-                    Debug.Log("Destroied");
-                    nextdirection = Random.Range(1, 3);
+                    continue;
                     j--;
                 }
                 else
@@ -72,9 +70,8 @@ public class SpawnerExagonal : MonoBehaviour
                     pathPosition.Remove(_patOne);
                     Destroy(pathOne.gameObject);
                     Debug.Log("Destroied");
-                    nextdirection = Random.Range(0 ,1);
-                    nextdirection= Random.Range(3, 4);
-                    j=j-2;
+                    continue;
+                    j--;
                 }
                 else
                 {
@@ -91,8 +88,9 @@ public class SpawnerExagonal : MonoBehaviour
                     pathPosition.Remove(_patOne);
                     Destroy(pathOne.gameObject);
                     Debug.Log("Destroied");
-                    nextdirection = Random.Range(0, 3);
+                    //nextdirection = Random.Range(0, 3);
                     j--;
+                    continue;
                 }
                 else
                 {
@@ -102,6 +100,7 @@ public class SpawnerExagonal : MonoBehaviour
             if (nextdirection == 4)
             {
                 SpawnerFive();
+
             }
             if (nextdirection == 5)
             {
@@ -111,9 +110,15 @@ public class SpawnerExagonal : MonoBehaviour
             if (j > 10)
                 break;
         }
+        firstValue = pathPosition.First();
+        Debug.Log(firstValue);
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Start();
+        }
     }
     void SpawnerOne()//Q
     {
@@ -160,6 +165,9 @@ public class SpawnerExagonal : MonoBehaviour
     //}
 }
 
-    
+
+
+
+
 
 
